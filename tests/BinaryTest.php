@@ -174,15 +174,15 @@ class BinaryTest extends TestCase
     {
         $buf = new Binary('abcdef');
 
-        $slice1 = $buf->consumeSlice(1);
+        $slice1 = $buf->shift(1);
         $this->assertEquals('a', $slice1->read($slice1->size()));
         $this->assertEquals(5, $buf->size());
 
-        $slice2 = $buf->consumeSlice(2);
+        $slice2 = $buf->shift(2);
         $this->assertEquals('bc', $slice2->read($slice2->size()));
         $this->assertEquals(3, $buf->size());
 
-        $slice3 = $buf->consumeSlice(3);
+        $slice3 = $buf->shift(3);
         $this->assertEquals('def', $slice3->read($slice3->size()));
         $this->assertEquals(0, $buf->size());
     }
@@ -193,7 +193,7 @@ class BinaryTest extends TestCase
     public function testConsumeSliceThrows()
     {
         $buf = new Binary;
-        $buf->consumeSlice(1);
+        $buf->shift(1);
     }
 
     public function testAppend()

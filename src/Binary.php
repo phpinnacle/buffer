@@ -49,21 +49,20 @@ class Binary
     }
 
     /**
-     * Returns number of bytes in buffer.
+     * @param string|self $value
      *
-     * @return int
+     * @return self
      */
-    public function size(): int
+    public function append($value): self
     {
-        return $this->size;
-    }
+        if ($value instanceof Binary) {
+            $value = $value->data;
+        }
 
-    /**
-     * @return boolean
-     */
-    public function empty(): bool
-    {
-        return $this->size === 0;
+        $this->data .= $value;
+        $this->size += \strlen($value);
+
+        return $this;
     }
 
     /**
@@ -108,19 +107,6 @@ class Binary
             return $buffer;
         }
     }
-    
-    /**
-     * @return string
-     */
-    public function flush(): string
-    {
-        $data = $this->data;
-        
-        $this->data = '';
-        $this->size = 0;
-        
-        return $data;
-    }
 
     /**
      * @param int $n
@@ -147,25 +133,25 @@ class Binary
     /**
      * @param int $n
      *
-     * @return self
+     * @return static
      */
     public function slice(int $n): self
     {
         if ($this->size < $n) {
             throw new Exception\BufferUnderflow;
         } elseif ($this->size === $n) {
-            return new self($this->data);
+            return new static($this->data);
         } else {
-            return new self(\substr($this->data, 0, $n));
+            return new static(\substr($this->data, 0, $n));
         }
     }
 
     /**
      * @param int $n
      *
-     * @return self
+     * @return static
      */
-    public function consumeSlice(int $n): self
+    public function shift(int $n): self
     {
         if ($this->size < $n) {
             throw new Exception\BufferUnderflow;
@@ -175,7 +161,7 @@ class Binary
             $this->data = '';
             $this->size = 0;
 
-            return new self($buffer);
+            return new static($buffer);
 
         } else {
             $buffer = \substr($this->data, 0, $n);
@@ -183,27 +169,37 @@ class Binary
             $this->data = \substr($this->data, $n);
             $this->size -= $n;
 
-            return new self($buffer);
+            return new static($buffer);
         }
     }
 
     /**
-     * Appends bytes at the end of the buffer.
-     *
-     * @param string|self $value
-     *
-     * @return self
+     * @return string
      */
-    public function append($value): self
+    public function flush(): string
     {
-        if ($value instanceof Binary) {
-            $value = $value->data;
-        }
+        $data = $this->data;
 
-        $this->data .= $value;
-        $this->size += \strlen($value);
+        $this->data = '';
+        $this->size = 0;
 
-        return $this;
+        return $data;
+    }
+
+    /**
+     * @return int
+     */
+    public function size(): int
+    {
+        return $this->size;
+    }
+
+    /**
+     * @return boolean
+     */
+    public function empty(): bool
+    {
+        return $this->size === 0;
     }
     
     /**
