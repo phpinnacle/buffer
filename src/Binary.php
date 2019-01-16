@@ -49,9 +49,9 @@ class Binary
     }
 
     /**
-     * @param string|self $value
+     * @param string|static $value
      *
-     * @return self
+     * @return static
      */
     public function append($value): self
     {
@@ -75,11 +75,13 @@ class Binary
     {
         if ($this->size < $offset + $n) {
             throw new Exception\BufferUnderflow;
-        } elseif ($offset === 0 && $this->size === $offset + $n) {
-            return $this->data;
-        } else {
-            return \substr($this->data, $offset, $n);
         }
+
+        if ($offset === 0 && $this->size === $offset + $n) {
+            return $this->data;
+        }
+
+        return \substr($this->data, $offset, $n);
     }
 
     /**
@@ -91,43 +93,43 @@ class Binary
     {
         if ($this->size < $n) {
             throw new Exception\BufferUnderflow;
-        } elseif ($this->size === $n) {
+        }
+
+        if ($this->size === $n) {
             $buffer = $this->data;
 
             $this->data = '';
             $this->size = 0;
-
-            return $buffer;
         } else {
             $buffer = \substr($this->data, 0, $n);
 
             $this->data = \substr($this->data, $n);
             $this->size -= $n;
-
-            return $buffer;
         }
+
+        return $buffer;
     }
 
     /**
      * @param int $n
      *
-     * @return self
+     * @return static
      */
     public function discard(int $n): self
     {
         if ($this->size < $n) {
             throw new Exception\BufferUnderflow;
-        } elseif ($this->size === $n) {
+        }
+
+        if ($this->size === $n) {
             $this->data = '';
             $this->size = 0;
-
-            return $this;
         } else {
             $this->data = \substr($this->data, $n);
             $this->size -= $n;
-
-            return $this;
         }
+
+        return $this;
     }
 
     /**
@@ -139,11 +141,9 @@ class Binary
     {
         if ($this->size < $n) {
             throw new Exception\BufferUnderflow;
-        } elseif ($this->size === $n) {
-            return new static($this->data);
-        } else {
-            return new static(\substr($this->data, 0, $n));
         }
+
+        return $this->size === $n ? new static($this->data) : new static(\substr($this->data, 0, $n));
     }
 
     /**
@@ -155,22 +155,21 @@ class Binary
     {
         if ($this->size < $n) {
             throw new Exception\BufferUnderflow;
-        } elseif ($this->size === $n) {
+        }
+
+        if ($this->size === $n) {
             $buffer = $this->data;
 
             $this->data = '';
             $this->size = 0;
-
-            return new static($buffer);
-
         } else {
             $buffer = \substr($this->data, 0, $n);
 
             $this->data = \substr($this->data, $n);
             $this->size -= $n;
-
-            return new static($buffer);
         }
+
+        return new static($buffer);
     }
 
     /**
@@ -205,7 +204,7 @@ class Binary
     /**
      * @param int $value
      *
-     * @return self
+     * @return static
      */
     public function appendInt8(int $value): self
     {
@@ -233,7 +232,7 @@ class Binary
     /**
      * @param int $value
      *
-     * @return self
+     * @return static
      */
     public function appendInt16(int $value): self
     {
@@ -261,7 +260,7 @@ class Binary
     /**
      * @param int $value
      *
-     * @return self
+     * @return static
      */
     public function appendInt32(int $value): self
     {
@@ -289,7 +288,7 @@ class Binary
     /**
      * @param int $value
      *
-     * @return self
+     * @return static
      */
     public function appendInt64(int $value): self
     {
@@ -313,13 +312,12 @@ class Binary
         $s = $this->read(8, $offset);
         
         if (self::$native64BitPack) {
-            $r = \unpack("q", self::swapEndian64($s))[1];
-        } else {
-            $d = \unpack("Lh/Ll", self::swapHalvedEndian64($s));
-            $r = $d["h"] << 32 | $d["l"];
+            return \unpack("q", self::swapEndian64($s))[1];
         }
+
+        $d = \unpack("Lh/Ll", self::swapHalvedEndian64($s));
         
-        return $r;
+        return $d["h"] << 32 | $d["l"];
     }
     
     /**
@@ -330,19 +328,18 @@ class Binary
         $s = $this->consume(8);
 
         if (self::$native64BitPack) {
-            $r = \unpack("q", self::swapEndian64($s))[1];
-        } else {
-            $d = \unpack("Lh/Ll", self::swapHalvedEndian64($s));
-            $r = $d["h"] << 32 | $d["l"];
+            return \unpack("q", self::swapEndian64($s))[1];
         }
+
+        $d = \unpack("Lh/Ll", self::swapHalvedEndian64($s));
         
-        return $r;
+        return $d["h"] << 32 | $d["l"];
     }
     
     /**
      * @param int $value
      *
-     * @return self
+     * @return static
      */
     public function appendUint8(int $value): self
     {
@@ -374,7 +371,7 @@ class Binary
     /**
      * @param int $value
      *
-     * @return self
+     * @return static
      */
     public function appendUint16(int $value): self
     {
@@ -406,7 +403,7 @@ class Binary
     /**
      * @param int $value
      *
-     * @return self
+     * @return static
      */
     public function appendUint32(int $value): self
     {
@@ -438,7 +435,7 @@ class Binary
     /**
      * @param int $value
      *
-     * @return self
+     * @return static
      */
     public function appendUint64(int $value): self
     {
@@ -462,13 +459,12 @@ class Binary
         $s = $this->read(8, $offset);
         
         if (self::$native64BitPack) {
-            $r = \unpack("Q", self::swapEndian64($s))[1];
-        } else {
-            $d = \unpack("Lh/Ll", self::swapHalvedEndian64($s));
-            $r = $d["h"] << 32 | $d["l"];
+            return \unpack("Q", self::swapEndian64($s))[1];
         }
+
+        $d = \unpack("Lh/Ll", self::swapHalvedEndian64($s));
         
-        return $r;
+        return $d["h"] << 32 | $d["l"];
     }
 
     /**
@@ -479,19 +475,18 @@ class Binary
         $s = $this->consume(8);
 
         if (self::$native64BitPack) {
-            $r = \unpack("Q", self::swapEndian64($s))[1];
-        } else {
-            $d = \unpack("Lh/Ll", self::swapHalvedEndian64($s));
-            $r = $d["h"] << 32 | $d["l"];
+            return \unpack("Q", self::swapEndian64($s))[1];
         }
 
-        return $r;
+        $d = \unpack("Lh/Ll", self::swapHalvedEndian64($s));
+
+        return $d["h"] << 32 | $d["l"];
     }
     
     /**
      * @param float $value
      *
-     * @return self
+     * @return static
      */
     public function appendFloat(float $value): self
     {
@@ -519,7 +514,7 @@ class Binary
     /**
      * @param float $value
      *
-     * @return self
+     * @return static
      */
     public function appendDouble($value): self
     {
