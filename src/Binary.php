@@ -42,7 +42,7 @@ class Binary
         $this->data = $buffer;
         $this->size = \strlen($this->data);
 
-        if (self::$native64BitPack === null) {
+        if (!isset(self::$native64BitPack)) {
             self::$native64BitPack = PHP_INT_SIZE === 8;
             self::$isLittleEndian  = \unpack("S", "\x01\x00")[1] === 1;
         }

@@ -37,8 +37,6 @@ $buffer
 
 ```
 
-More examples can be found in [`examples`](examples) directory.
-
 ## Change log
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
