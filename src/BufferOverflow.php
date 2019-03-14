@@ -10,8 +10,11 @@
 
 declare(strict_types = 1);
 
-namespace PHPinnacle\Buffer\Exception;
+namespace PHPinnacle\Buffer;
 
-abstract class BufferException extends \RuntimeException
+if (!\class_exists('\PHPinnacle\Buffer\BufferOverflow'))
 {
+    final class BufferOverflow extends \Exception
+    {
+    }
 }

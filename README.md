@@ -23,7 +23,7 @@ $ composer require phpinnacle/buffer
 ```php
 <?php
 
-use PHPinnacle\Buffer\Binary as Buffer;
+use PHPinnacle\Buffer\ByteBuffer as Buffer;
 
 // AMQP protocol header
 $buffer = new Buffer;
@@ -36,10 +36,6 @@ $buffer
 ;
 
 ```
-
-## Change log
-
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 ## Testing
 
@@ -75,4 +71,4 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [link-code-quality]: https://scrutinizer-ci.com/g/phpinnacle/buffer
 [link-downloads]: https://packagist.org/packages/phpinnacle/buffer
 [link-author]: https://github.com/phpinnacle
-[link-contributors]: ../../contributors
+[link-contributors]: https://github.com/phpinnacle/buffer/graphs/contributors
