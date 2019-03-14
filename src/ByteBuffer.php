@@ -40,7 +40,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
             $this->size = \strlen($this->data);
 
             if (!isset(self::$isLittleEndian)) {
-                self::$isLittleEndian  = \unpack("S", "\x01\x00")[1] === 1;
+                self::$isLittleEndian = \unpack("S", "\x01\x00")[1] === 1;
             }
         }
 
@@ -48,6 +48,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
          * @param string|static $value
          *
          * @return static
+         * @throws \TypeError
          */
         public function append($value): self
         {
@@ -220,6 +221,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
          * @param int $offset
          *
          * @return int
+         * @throws BufferOverflow
          */
         public function readInt8(int $offset = 0): int
         {
@@ -228,6 +230,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
 
         /**
          * @return int
+         * @throws BufferOverflow
          */
         public function consumeInt8(): int
         {
@@ -248,6 +251,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
          * @param int $offset
          *
          * @return int
+         * @throws BufferOverflow
          */
         public function readInt16(int $offset = 0): int
         {
@@ -256,6 +260,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
 
         /**
          * @return int
+         * @throws BufferOverflow
          */
         public function consumeInt16(): int
         {
@@ -276,6 +281,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
          * @param int $offset
          *
          * @return int
+         * @throws BufferOverflow
          */
         public function readInt32(int $offset = 0): int
         {
@@ -284,6 +290,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
 
         /**
          * @return int
+         * @throws BufferOverflow
          */
         public function consumeInt32(): int
         {
@@ -304,6 +311,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
          * @param int $offset
          *
          * @return int
+         * @throws BufferOverflow
          */
         public function readInt64(int $offset = 0): int
         {
@@ -312,6 +320,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
 
         /**
          * @return int
+         * @throws BufferOverflow
          */
         public function consumeInt64(): int
         {
@@ -332,6 +341,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
          * @param int $offset
          *
          * @return int
+         * @throws BufferOverflow
          */
         public function readUint8(int $offset = 0): int
         {
@@ -340,6 +350,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
 
         /**
          * @return int
+         * @throws BufferOverflow
          */
         public function consumeUint8(): int
         {
@@ -364,6 +375,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
          * @param int $offset
          *
          * @return int
+         * @throws BufferOverflow
          */
         public function readUint16(int $offset = 0): int
         {
@@ -372,6 +384,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
 
         /**
          * @return int
+         * @throws BufferOverflow
          */
         public function consumeUint16(): int
         {
@@ -396,6 +409,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
          * @param int $offset
          *
          * @return int
+         * @throws BufferOverflow
          */
         public function readUint32(int $offset = 0): int
         {
@@ -404,6 +418,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
 
         /**
          * @return int
+         * @throws BufferOverflow
          */
         public function consumeUint32(): int
         {
@@ -428,6 +443,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
          * @param int $offset
          *
          * @return int
+         * @throws BufferOverflow
          */
         public function readUint64(int $offset = 0): int
         {
@@ -436,6 +452,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
 
         /**
          * @return int
+         * @throws BufferOverflow
          */
         public function consumeUint64(): int
         {
@@ -456,6 +473,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
          * @param int $offset
          *
          * @return float
+         * @throws BufferOverflow
          */
         public function readFloat(int $offset = 0): float
         {
@@ -464,6 +482,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
 
         /**
          * @return float
+         * @throws BufferOverflow
          */
         public function consumeFloat(): float
         {
@@ -484,6 +503,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
          * @param int $offset
          *
          * @return float
+         * @throws BufferOverflow
          */
         public function readDouble(int $offset = 0): float
         {
@@ -492,6 +512,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
 
         /**
          * @return float
+         * @throws BufferOverflow
          */
         public function consumeDouble(): float
         {
