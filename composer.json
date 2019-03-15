@@ -3,7 +3,7 @@
     "type": "library",
     "description": "PHPinnacle binary buffer implementation",
     "keywords": [
-        "phpinnacle", "binary", "buffer", "binary data", "pack", "unpack"
+        "phpinnacle", "buffer", "byte buffer", "binary", "binary data", "pack", "unpack"
     ],
     "homepage": "https://github.com/phpinnacle/buffer",
     "license": "MIT",
@@ -20,6 +20,9 @@
     },
     "require-dev": {
         "phpunit/phpunit": "^8.0"
+    },
+    "suggest": {
+        "ext-buffer": "C extension to speed up pack/unpack binary data"
     },
     "autoload": {
         "psr-4": {
