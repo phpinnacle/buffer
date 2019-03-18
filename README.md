@@ -3,12 +3,9 @@
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
 [![Coverage Status][ico-scrutinizer]][link-scrutinizer]
-[![Quality Score][ico-code-quality]][link-code-quality]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 PHPinnacle Buffer is a simple tool for operating binary data in PHP. Mostly it simply wraps PHP pack/unpack functions.
-
-Code is mostly based on [bunnyphp](https://github.com/jakubkulhan/bunny), Buffer class implemenation.
 
 ## Install
 
@@ -23,10 +20,10 @@ $ composer require phpinnacle/buffer
 ```php
 <?php
 
-use PHPinnacle\Buffer\ByteBuffer as Buffer;
+use PHPinnacle\Buffer\ByteBuffer;
 
 // AMQP protocol header
-$buffer = new Buffer;
+$buffer = new ByteBuffer;
 $buffer
     ->append('AMQP')
     ->appendUint8(0)
@@ -41,6 +38,12 @@ $buffer
 
 ```bash
 $ composer test
+```
+
+## Benchmarks
+
+```bash
+$ composer bench
 ```
 
 ## Contributing
@@ -63,12 +66,10 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 [ico-version]: https://img.shields.io/packagist/v/phpinnacle/buffer.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
 [ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/phpinnacle/buffer.svg?style=flat-square
-[ico-code-quality]: https://img.shields.io/scrutinizer/g/phpinnacle/buffer.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/phpinnacle/buffer.svg?style=flat-square
 
 [link-packagist]: https://packagist.org/packages/phpinnacle/buffer
 [link-scrutinizer]: https://scrutinizer-ci.com/g/phpinnacle/buffer/code-structure
-[link-code-quality]: https://scrutinizer-ci.com/g/phpinnacle/buffer
 [link-downloads]: https://packagist.org/packages/phpinnacle/buffer
 [link-author]: https://github.com/phpinnacle
 [link-contributors]: https://github.com/phpinnacle/buffer/graphs/contributors
