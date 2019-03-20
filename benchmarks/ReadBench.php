@@ -4,9 +4,8 @@ use PHPinnacle\Buffer\ByteBuffer;
 
 /**
  * @BeforeMethods({"init"})
- * @AfterMethods({"clear"})
  */
-class BufferReadBench
+class ReadBench
 {
     /**
      * @var ByteBuffer
@@ -18,7 +17,7 @@ class BufferReadBench
      */
     public function init(): void
     {
-        $this->buffer = new ByteBuffer();
+        $this->buffer = new ByteBuffer;
         $this->buffer
             ->appendInt8(1)
             ->appendInt16(1)
@@ -40,33 +39,7 @@ class BufferReadBench
     }
 
     /**
-     * @Revs(1)
-     * @Iterations(100)
-     *
-     * @return void
-     */
-    public function benchConsume(): void
-    {
-        $this->buffer->consumeInt8();
-        $this->buffer->consumeInt16();
-        $this->buffer->consumeInt32();
-        $this->buffer->consumeInt64();
-        $this->buffer->consumeUint8();
-        $this->buffer->consumeUint16();
-        $this->buffer->consumeUint32();
-        $this->buffer->consumeUint64();
-        $this->buffer->consumeFloat();
-        $this->buffer->consumeFloat();
-        $this->buffer->consumeFloat();
-        $this->buffer->consumeDouble();
-        $this->buffer->consumeDouble();
-        $this->buffer->consumeDouble();
-        $this->buffer->consume(11);
-        $this->buffer->consume(12);
-    }
-
-    /**
-     * @Revs(1)
+     * @Revs(1000)
      * @Iterations(100)
      *
      * @return void
@@ -89,13 +62,5 @@ class BufferReadBench
         $this->buffer->readDouble(58);
         $this->buffer->read(11, 66);
         $this->buffer->read(12, 77);
-    }
-
-    /**
-     * @return void
-     */
-    public function clear(): void
-    {
-        $this->buffer->flush();
     }
 }

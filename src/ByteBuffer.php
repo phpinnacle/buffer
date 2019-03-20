@@ -165,7 +165,7 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
 
             if ($this->size === $n) {
                 $buffer = $this->data;
-                
+
                 $this->data = '';
                 $this->size = 0;
             } else {
