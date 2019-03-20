@@ -4,9 +4,8 @@ use PHPinnacle\Buffer\ByteBuffer;
 
 /**
  * @BeforeMethods({"init"})
- * @AfterMethods({"clear"})
  */
-class BufferWriteBench
+class AppendBench
 {
     /**
      * @var ByteBuffer
@@ -14,15 +13,21 @@ class BufferWriteBench
     private $buffer;
 
     /**
+     * @var string
+     */
+    private $string;
+
+    /**
      * @return void
      */
     public function init(): void
     {
-        $this->buffer = new ByteBuffer();
+        $this->buffer = new ByteBuffer;
+        $this->string = \str_repeat('str', 1000);
     }
 
     /**
-     * @Revs(5)
+     * @Revs(1000)
      * @Iterations(100)
      *
      * @return void
@@ -42,7 +47,7 @@ class BufferWriteBench
     }
 
     /**
-     * @Revs(5)
+     * @Revs(1000)
      * @Iterations(100)
      *
      * @return void
@@ -60,7 +65,7 @@ class BufferWriteBench
     }
 
     /**
-     * @Revs(5)
+     * @Revs(1000)
      * @Iterations(100)
      *
      * @return void
@@ -70,15 +75,7 @@ class BufferWriteBench
         $this->buffer
             ->append('some string')
             ->append("other string")
-            ->append(str_repeat('str', 1000))
+            ->append($this->string)
         ;
-    }
-
-    /**
-     * @return void
-     */
-    public function clear(): void
-    {
-        $this->buffer->flush();
     }
 }
