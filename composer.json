@@ -16,11 +16,11 @@
         }
     ],
     "require": {
-        "php": "^7.1"
+        "php": "^7.1 || ^8.0"
     },
     "require-dev": {
-        "phpbench/phpbench": "^0.16",
-        "phpunit/phpunit": "^8.0"
+        "phpbench/phpbench": "^0.17",
+        "phpunit/phpunit": "^9.0"
     },
     "suggest": {
         "ext-buffer": "C extension to speed up pack/unpack binary data"
