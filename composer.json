@@ -16,10 +16,9 @@
         }
     ],
     "require": {
-        "php": "^7.1 || ^8.0"
+        "php": ">=7.3"
     },
     "require-dev": {
-        "phpbench/phpbench": "^0.17",
         "phpunit/phpunit": "^9.0"
     },
     "suggest": {
@@ -27,17 +26,16 @@
     },
     "autoload": {
         "psr-4": {
-            "PHPinnacle\\Buffer\\": "src"
+            "PHPinnacle\\Buffer\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "PHPinnacle\\Buffer\\Tests\\": "tests"
+            "PHPinnacle\\Buffer\\Tests\\": "tests/"
         }
     },
     "scripts": {
-        "test": "phpunit",
-        "bench": "phpbench run benchmarks --report=aggregate"
+        "test": "phpunit"
     },
     "extra": {
         "branch-alias": {

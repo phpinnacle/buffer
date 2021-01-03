@@ -2,7 +2,6 @@
 
 [![Latest Version on Packagist][ico-version]][link-packagist]
 [![Software License][ico-license]](LICENSE.md)
-[![Coverage Status][ico-scrutinizer]][link-scrutinizer]
 [![Total Downloads][ico-downloads]][link-downloads]
 
 PHPinnacle Buffer is a simple tool for operating binary data in PHP. Mostly it simply wraps PHP pack/unpack functions.
@@ -68,7 +67,7 @@ And results with enabled [extension][link-extension]:
 
 ## Contributing
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) and [CONDUCT](CONDUCT.md) for details.
+Please see [CONTRIBUTING](.github/CONTRIBUTING.md) and [CONDUCT](.github/CONDUCT.md) for details.
 
 ## Security
 
@@ -85,12 +84,10 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 [ico-version]: https://img.shields.io/packagist/v/phpinnacle/buffer.svg?style=flat-square
 [ico-license]: https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square
-[ico-scrutinizer]: https://img.shields.io/scrutinizer/coverage/g/phpinnacle/buffer.svg?style=flat-square
 [ico-downloads]: https://img.shields.io/packagist/dt/phpinnacle/buffer.svg?style=flat-square
 
 [link-extension]: https://github.com/phpinnacle/ext-buffer
 [link-packagist]: https://packagist.org/packages/phpinnacle/buffer
-[link-scrutinizer]: https://scrutinizer-ci.com/g/phpinnacle/buffer/code-structure
 [link-downloads]: https://packagist.org/packages/phpinnacle/buffer
 [link-author]: https://github.com/phpinnacle
 [link-contributors]: https://github.com/phpinnacle/buffer/graphs/contributors
