@@ -1,6 +1,5 @@
-.phpunit.result.cache
 composer.lock
 /.vscode
 /.idea
+/tmp
 /vendor
-/build

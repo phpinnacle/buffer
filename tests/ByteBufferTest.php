@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace PHPinnacle\Buffer\Tests;
 
 use PHPinnacle\Buffer\ByteBuffer as Buffer;

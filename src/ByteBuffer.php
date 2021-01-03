@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace PHPinnacle\Buffer;
 
@@ -138,17 +138,18 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
 
         /**
          * @param int $n
+         * @param int $offset
          *
          * @return static
          * @throws BufferOverflow
          */
-        public function slice(int $n): self
+        public function slice(int $n, int $offset = 0): self
         {
             if ($this->size < $n) {
                 throw new BufferOverflow;
             }
 
-            return $this->size === $n ? new static($this->data) : new static(\substr($this->data, 0, $n));
+            return $this->size === $n ? new static($this->data) : new static(\substr($this->data, $offset, $n));
         }
 
         /**
@@ -176,6 +177,14 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
             }
 
             return new static($buffer);
+        }
+
+        /**
+         * @return string
+         */
+        public function bytes(): string
+        {
+            return $this->data;
         }
 
         /**

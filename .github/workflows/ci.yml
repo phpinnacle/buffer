@@ -1,0 +1,32 @@
+name: "Continuous Integration"
+
+on: [ push ]
+
+jobs:
+    phpunit:
+        strategy:
+            matrix:
+                os: [ ubuntu-latest ]
+                php: [ '7.3', '7.4', '8.0' ]
+        name: PHPUnit (PHP ${{ matrix.php }}) tests on ${{ matrix.os }}
+        runs-on: ${{ matrix.os }}
+        env:
+            PHP_EXTENSIONS: mbstring, dom, intl, json, libxml, xml, xmlwriter, sockets
+            PHP_INI_VALUES: assert.exception=1, zend.assertions=1
+        steps:
+            - name: Checkout
+              uses: actions/checkout@v2
+
+            - name: Install PHP with extensions
+              uses: shivammathur/setup-php@v2
+              with:
+                  php-version: ${{ matrix.php }}
+                  extensions: ${{ env.PHP_EXTENSIONS }}
+                  ini-values: ${{ env.PHP_INI_VALUES }}
+                  tools: composer:v2
+
+            - name: Install dependencies
+              run: composer update -ov
+
+            - name: Run tests with phpunit
+              run: php ./vendor/bin/phpunit
