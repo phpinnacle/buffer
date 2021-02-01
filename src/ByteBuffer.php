@@ -443,6 +443,40 @@ if (!\class_exists('\PHPinnacle\Buffer\ByteBuffer'))
          *
          * @return static
          */
+        public function appendUint32LE(int $value): self
+        {
+            return $this->append(\pack("V", $value));
+        }
+
+        /**
+         * @param int $offset
+         *
+         * @return int
+         * @throws BufferOverflow
+         */
+        public function readUint32LE(int $offset = 0): int
+        {
+            return \unpack("V", $this->read(4, $offset))[1];
+        }
+
+        /**
+         * @return int
+         * @throws BufferOverflow
+         */
+        public function consumeUint32LE(): int
+        {
+            $r = \unpack("V", $this->data)[1];
+
+            $this->discard(4);
+
+            return $r;
+        }
+
+        /**
+         * @param int $value
+         *
+         * @return static
+         */
         public function appendUint64(int $value): self
         {
             return $this->append(self::swapEndian64(\pack("Q", $value)));

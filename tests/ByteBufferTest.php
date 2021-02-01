@@ -321,6 +321,11 @@ class ByteBufferTest extends TestCase
         self::assertEquals(0xA9782361, (new Buffer("\xA9\x78\x23\x61"))->readUint32());
     }
 
+    public function testReadUint32LE()
+    {
+        self::assertEquals(0xA9782361, (new Buffer("\x61\x23\x78\xA9"))->readUint32LE());
+    }
+
     public function testReadInt32()
     {
         self::assertEquals(0xA9782361 - 0x100000000, (new Buffer("\xA9\x78\x23\x61"))->readInt32());
@@ -331,6 +336,11 @@ class ByteBufferTest extends TestCase
         self::assertEquals(0xA9782361, (new Buffer("\xA9\x78\x23\x61"))->consumeUint32());
     }
 
+    public function testConsumeUint32LE()
+    {
+        self::assertEquals(0xA9782361, (new Buffer("\x61\x23\x78\xA9"))->consumeUint32LE());
+    }
+
     public function testConsumeInt32()
     {
         self::assertEquals(0xA9782361 - 0x100000000, (new Buffer("\xA9\x78\x23\x61"))->consumeInt32());
@@ -339,6 +349,11 @@ class ByteBufferTest extends TestCase
     public function testAppendUint32()
     {
         self::assertEquals("\xA9\x78\x23\x61", (new Buffer)->appendUint32(0xA9782361)->read(4));
+    }
+
+    public function testAppendUint32LE()
+    {
+        self::assertEquals("\x61\x23\x78\xA9", (new Buffer)->appendUint32LE(0xA9782361)->read(4));
     }
 
     public function testAppendInt32()
